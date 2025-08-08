@@ -86,60 +86,6 @@ To use the backend with your existing frontend:
 
 1. **Update the contact form in `MV.html`** to use the backend instead of EmailJS:
 
-```javascript
-// Replace the EmailJS code with this:
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const service = document.getElementById('service').value;
-        const message = document.getElementById('message').value.trim();
-
-        if (!name || !email || !message) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    service,
-                    message
-                })
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                alert('Thank you! Your message was sent successfully. We will get back to you soon.');
-                contactForm.reset();
-            } else {
-                alert('Sorry, there was an error sending your message. Please try again.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Sorry, there was an error sending your message. Please try again.');
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-}
-```
 
 ## Security Features
 
@@ -188,3 +134,4 @@ For production deployment:
 ## Support
 
 For issues or questions, please check the troubleshooting section or create an issue in the project repository.
+
